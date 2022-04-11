@@ -1,27 +1,19 @@
 export class Negotiation {
-    #data
-    #qtd
-    #value
-
     constructor(data, qtd, value) {
-        this.#data = data
-        this.#qtd = qtd
-        this.#value = value
+        this._data = data;
+        this._qtd = qtd;
+        this._value = value;
     }
-
     get data() {
-        return this.#data
+        return this._data;
     }
-
     get qtd() {
-        return this.#qtd
+        return this._qtd;
     }
-
     get value() {
-        return this.#value
-    } 
-
+        return this._value;
+    }
     get volume() {
-        return this.#qtd * this.#value
+        return this._qtd * this._value;
     }
 }
