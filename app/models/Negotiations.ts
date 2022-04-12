@@ -1,13 +1,13 @@
 import { Negotiation } from "./Negotiation.js";
 
 export class Negotiations {
-    private negotiations: Array<Negotiation> = []
+    private negotiations: Negotiation[] = [] //mesmo que : Array<Negotiation> = []
 
     add(negotiation: Negotiation): void {
         this.negotiations.push(negotiation)
     }
 
-    list(): ReadonlyArray<Negotiation> {
+    list(): readonly Negotiation[] { //mesmo que : ReadonlyArray<Negotiation>
         return this.negotiations
     }
 }

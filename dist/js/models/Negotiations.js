@@ -1,6 +1,6 @@
 export class Negotiations {
     constructor() {
-        this.negotiations = [];
+        this.negotiations = []; //mesmo que : Array<Negotiation> = []
     }
     add(negotiation) {
         this.negotiations.push(negotiation);

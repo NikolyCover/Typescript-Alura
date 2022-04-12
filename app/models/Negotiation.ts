@@ -1,27 +1,17 @@
 export class Negotiation {
-    private _data: Date
-    private _qtd: number
-    private _value: number
 
-    constructor(data: Date, qtd: number, value: number) {
-        this._data = data
-        this._qtd = qtd
-        this._value = value
+    constructor(
+        private _date: Date,
+        public readonly qtd: number,
+        public readonly value: number
+    ) {}
+    //é a mesma coisa que criar os atributos da classe e atribuir a eles os argumentos passados no construtor
+
+    get date(): Date {
+        return {...this._date}
     }
-
-    get data(): Date {
-        return this._data
-    }
-
-    get qtd(): number {
-        return this._qtd
-    }
-
-    get value(): number {
-        return this._value
-    } 
 
     get volume(): number {
-        return this._qtd * this._value
+        return this.qtd * this.value
     }
 }
