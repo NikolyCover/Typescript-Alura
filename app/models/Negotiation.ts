@@ -8,7 +8,7 @@ export class Negotiation {
     //é a mesma coisa que criar os atributos da classe e atribuir a eles os argumentos passados no construtor
 
     get date(): Date {
-        return {...this._date}
+        return new Date(this._date.getTime())
     }
 
     get volume(): number {

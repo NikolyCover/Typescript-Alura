@@ -1,4 +1,4 @@
-import { Negotiation } from "./Negotiation.js";
+import { Negotiation } from "./negotiation.js";
 
 export class Negotiations {
     private negotiations: Negotiation[] = [] //mesmo que : Array<Negotiation> = []
