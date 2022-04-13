@@ -1,12 +1,8 @@
 import { Negotiation } from "../models/negotiation.js"
 import { Negotiations } from "../models/negotiations.js"
+import { View } from "./view.js"
 
-export class NegotiationsView {
-    private element: HTMLElement
-
-    constructor(selector: string) {
-        this.element = document.querySelector(selector)
-    }
+export class NegotiationsView extends View<Negotiations> {
 
     template(model: Negotiations): string {
         return `
@@ -20,7 +16,6 @@ export class NegotiationsView {
             </tread>
             <tbody>
                 ${model.list().map(negotiation => {
-                    console.log(negotiation.date.getDate)
                     return `
                         <tr>
                             <td>${new Intl.DateTimeFormat().format(negotiation.date)}</td>
@@ -32,10 +27,5 @@ export class NegotiationsView {
             </tbody>
         </table>
         `
-    }
-
-    update(model: Negotiations): void {
-        const template = this.template(model)
-        this.element.innerHTML = template
     }
 }
