@@ -10,6 +10,8 @@ export class NegotiationController {
     private negotiations = new Negotiations()
     private negotiationsView = new NegotiationsView('#negotiationsView')
     private messageView = new MessageView('#messageView')
+    private readonly SATURDAY = 6
+    private readonly SUNDAY = 0
 
     constructor() {
         this.inputDate = document.querySelector('#data')
@@ -17,15 +19,20 @@ export class NegotiationController {
         this.inputValue = document.querySelector('#valor')
     }
 
-    add(): void {
+    public add(): void {
         const negotiation = this.createNegotiation()
+
+        if(!this.isWorkingDay(negotiation.date)) {
+            this.messageView.update('Apenas negociações em dias úteis são aceitas')
+            return
+        }
+
         this.negotiations.add(negotiation)
-        this.negotiationsView.update(this.negotiations)
-        this.messageView.update('Negociação adicionada com sucesso!')
         this.cleanForm()
+        this.updateView()
     }
     
-    createNegotiation(): Negotiation {
+    private createNegotiation(): Negotiation {
         const date = new Date(this.inputDate.value.replace(/-/g, ','))
         const qtd = parseInt(this.inputqtd.value)
         const value = parseFloat(this.inputValue.value)
@@ -33,10 +40,19 @@ export class NegotiationController {
         return new Negotiation(date, qtd, value)
     }
 
-    cleanForm(): void {
+    private cleanForm(): void {
         this.inputDate.value = ''
         this.inputqtd.value = ''
         this.inputValue.value = ''
         this.inputDate.focus()
+    }
+
+    private updateView(): void {
+        this.negotiationsView.update(this.negotiations)
+        this.messageView.update('Negociação adicionada com sucesso!')
+    }
+
+    private isWorkingDay(date: Date): boolean {
+        return date.getDay() > this.SUNDAY && date.getDay() < this.SATURDAY
     }
 }

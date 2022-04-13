@@ -7,16 +7,21 @@ export class NegotiationController {
         this.negotiations = new Negotiations();
         this.negotiationsView = new NegotiationsView('#negotiationsView');
         this.messageView = new MessageView('#messageView');
+        this.SATURDAY = 6;
+        this.SUNDAY = 0;
         this.inputDate = document.querySelector('#data');
         this.inputqtd = document.querySelector('#quantidade');
         this.inputValue = document.querySelector('#valor');
     }
     add() {
         const negotiation = this.createNegotiation();
+        if (!this.isWorkingDay(negotiation.date)) {
+            this.messageView.update('Apenas negociações em dias úteis são aceitas');
+            return;
+        }
         this.negotiations.add(negotiation);
-        this.negotiationsView.update(this.negotiations);
-        this.messageView.update('Negociação adicionada com sucesso!');
         this.cleanForm();
+        this.updateView();
     }
     createNegotiation() {
         const date = new Date(this.inputDate.value.replace(/-/g, ','));
@@ -29,5 +34,12 @@ export class NegotiationController {
         this.inputqtd.value = '';
         this.inputValue.value = '';
         this.inputDate.focus();
+    }
+    updateView() {
+        this.negotiationsView.update(this.negotiations);
+        this.messageView.update('Negociação adicionada com sucesso!');
+    }
+    isWorkingDay(date) {
+        return date.getDay() > this.SUNDAY && date.getDay() < this.SATURDAY;
     }
 }
