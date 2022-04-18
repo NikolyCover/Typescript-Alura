@@ -6,4 +6,5 @@ export var DaysOfWeek;
     DaysOfWeek[DaysOfWeek["WEDNESDAY"] = 3] = "WEDNESDAY";
     DaysOfWeek[DaysOfWeek["THURSDAY"] = 4] = "THURSDAY";
     DaysOfWeek[DaysOfWeek["FRIDAY"] = 5] = "FRIDAY";
+    DaysOfWeek[DaysOfWeek["Saturday"] = 6] = "Saturday";
 })(DaysOfWeek || (DaysOfWeek = {}));

@@ -4,5 +4,6 @@ export enum DaysOfWeek {
     TUESDAY,
     WEDNESDAY,
     THURSDAY,
-    FRIDAY
+    FRIDAY,
+    Saturday
 }

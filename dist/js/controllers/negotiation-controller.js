@@ -2,13 +2,12 @@ import { Negotiation } from "../models/negotiation.js";
 import { Negotiations } from "../models/negotiations.js";
 import { MessageView } from "../views/message-view.js";
 import { NegotiationsView } from "../views/negotiations-view.js";
+import { DaysOfWeek } from "./enums/days-of-week.js";
 export class NegotiationController {
     constructor() {
         this.negotiations = new Negotiations();
         this.negotiationsView = new NegotiationsView('#negotiationsView');
         this.messageView = new MessageView('#messageView');
-        this.SATURDAY = 6;
-        this.SUNDAY = 0;
         this.inputDate = document.querySelector('#data');
         this.inputqtd = document.querySelector('#quantidade');
         this.inputValue = document.querySelector('#valor');
@@ -40,6 +39,6 @@ export class NegotiationController {
         this.messageView.update('Negociação adicionada com sucesso!');
     }
     isWorkingDay(date) {
-        return date.getDay() > this.SUNDAY && date.getDay() < this.SATURDAY;
+        return date.getDay() > DaysOfWeek.SUNDAY && date.getDay() < DaysOfWeek.Saturday;
     }
 }
