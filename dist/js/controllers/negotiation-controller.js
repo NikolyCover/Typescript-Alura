@@ -13,7 +13,7 @@ export class NegotiationController {
         this.inputValue = document.querySelector('#valor');
     }
     add() {
-        const negotiation = this.createNegotiation();
+        const negotiation = Negotiation.createFrom(this.inputDate.value, this.inputqtd.value, this.inputValue.value);
         if (!this.isWorkingDay(negotiation.date)) {
             this.messageView.update('Apenas negociações em dias úteis são aceitas');
             return;
@@ -21,12 +21,6 @@ export class NegotiationController {
         this.negotiations.add(negotiation);
         this.cleanForm();
         this.updateView();
-    }
-    createNegotiation() {
-        const date = new Date(this.inputDate.value.replace(/-/g, ','));
-        const qtd = parseInt(this.inputqtd.value);
-        const value = parseFloat(this.inputValue.value);
-        return new Negotiation(date, qtd, value);
     }
     cleanForm() {
         this.inputDate.value = '';

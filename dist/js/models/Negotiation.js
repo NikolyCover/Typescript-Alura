@@ -11,4 +11,10 @@ export class Negotiation {
     get volume() {
         return this.qtd * this.value;
     }
+    static createFrom(dateStr, qtdStr, valueStr) {
+        const date = new Date(dateStr.replace(/-/g, ','));
+        const qtd = parseInt(qtdStr);
+        const value = parseFloat(valueStr);
+        return new Negotiation(date, qtd, value);
+    }
 }
