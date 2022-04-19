@@ -9,13 +9,13 @@ export class NegotiationController {
     private inputqtd: HTMLInputElement
     private inputValue: HTMLInputElement
     private negotiations = new Negotiations()
-    private negotiationsView = new NegotiationsView('#negotiationsView', true)
+    private negotiationsView = new NegotiationsView('#negotiationsView', true  )
     private messageView = new MessageView('#messageView')
 
     constructor() {
-        this.inputDate = document.querySelector('#data')
-        this.inputqtd = document.querySelector('#quantidade')
-        this.inputValue = document.querySelector('#valor')
+        this.inputDate = document.querySelector('#data') as HTMLInputElement
+        this.inputqtd = document.querySelector('#quantidade') as HTMLInputElement
+        this.inputValue = document.querySelector('#valor') as HTMLInputElement
     }
 
     public add(): void {

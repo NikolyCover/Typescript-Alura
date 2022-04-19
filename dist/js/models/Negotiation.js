@@ -4,7 +4,6 @@ export class Negotiation {
         this.qtd = qtd;
         this.value = value;
     }
-    //é a mesma coisa que criar os atributos da classe e atribuir a eles os argumentos passados no construtor
     get date() {
         return new Date(this._date.getTime());
     }
