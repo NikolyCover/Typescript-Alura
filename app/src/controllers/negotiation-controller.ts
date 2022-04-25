@@ -4,6 +4,7 @@ import { logRuntime } from "../decorators/log-runtime.js"
 import { Negotiation } from "../models/negotiation.js"
 import { Negotiations } from "../models/negotiations.js"
 import { NegotationsService } from "../services/negotiations-service.js"
+import { print } from "../utils/print.js"
 import { MessageView } from "../views/message-view.js"
 import { NegotiationsView } from "../views/negotiations-view.js"
 import { DaysOfWeek } from "./enums/days-of-week.js"
@@ -37,6 +38,7 @@ export class NegotiationController {
         }
 
         this.negotiations.add(negotiation)
+        print(negotiation, this.negotiations )
         this.cleanForm()
         this.updateView()
     }
@@ -44,6 +46,11 @@ export class NegotiationController {
     importData(): void {
         this.negotiationsService
         .getNegotiationsOfTheDay()
+        .then(todayNegotiations => {
+            return todayNegotiations.filter(todayNegotiations => {
+                return !this.negotiations.list().some(negotiation => negotiation.isEqual)
+            })
+        })
         .then(todayNegoatiations => {
             for(let negotiation of todayNegoatiations) {
                 this.negotiations.add(negotiation)

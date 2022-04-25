@@ -1,4 +1,6 @@
-export class Negotiation {
+import { Printable } from "../utils/printable.js"
+
+export class Negotiation implements Printable {
 
     constructor(
         private _date: Date,
@@ -6,6 +8,14 @@ export class Negotiation {
         public readonly value: number
     ) {}
     //é a mesma coisa que criar os atributos da classe e atribuir a eles os argumentos passados no construtor
+
+    public static createFrom(dateStr: string, qtdStr: string, valueStr: string): Negotiation {
+        const date = new Date(dateStr.replace(/-/g, ','))
+        const qtd = parseInt(qtdStr)
+        const value = parseFloat(valueStr)
+
+        return new Negotiation(date, qtd, value)
+    }
 
     get date(): Date {
         return new Date(this._date.getTime())
@@ -15,11 +25,17 @@ export class Negotiation {
         return this.qtd * this.value
     }
 
-    public static createFrom(dateStr: string, qtdStr: string, valueStr: string): Negotiation {
-        const date = new Date(dateStr.replace(/-/g, ','))
-        const qtd = parseInt(qtdStr)
-        const value = parseFloat(valueStr)
+    public toText(): string {
+        return `
+            Data: ${this.date},
+            Quantidade: ${this.qtd},
+            Valor: ${this.value}
+        `
+    }
 
-        return new Negotiation(date, qtd, value)
+    public isEqual(negotiation: Negotiation): boolean {
+        return this.date.getDate() === negotiation.date.getDate()
+        && this.date.getMonth() === negotiation.date.getMonth()
+        && this.date.getFullYear() === negotiation.date.getFullYear()
     }
 }
