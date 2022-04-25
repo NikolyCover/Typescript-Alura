@@ -1,3 +1,5 @@
+import { inspect } from "../decorators/inspect.js"
+import { logRuntime } from "../decorators/log-runtime.js"
 import { Negotiation } from "../models/negotiation.js"
 import { Negotiations } from "../models/negotiations.js"
 import { MessageView } from "../views/message-view.js"
@@ -9,7 +11,7 @@ export class NegotiationController {
     private inputqtd: HTMLInputElement
     private inputValue: HTMLInputElement
     private negotiations = new Negotiations()
-    private negotiationsView = new NegotiationsView('#negotiationsView', true  )
+    private negotiationsView = new NegotiationsView('#negotiationsView')
     private messageView = new MessageView('#messageView')
 
     constructor() {
@@ -18,6 +20,8 @@ export class NegotiationController {
         this.inputValue = document.querySelector('#valor') as HTMLInputElement
     }
 
+    @inspect
+    @logRuntime()
     public add(): void {
         const negotiation = Negotiation.createFrom(
             this.inputDate.value,
