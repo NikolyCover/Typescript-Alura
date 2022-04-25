@@ -3,6 +3,7 @@ import { inspect } from "../decorators/inspect.js"
 import { logRuntime } from "../decorators/log-runtime.js"
 import { Negotiation } from "../models/negotiation.js"
 import { Negotiations } from "../models/negotiations.js"
+import { NegotationsService } from "../services/negotiations-service.js"
 import { MessageView } from "../views/message-view.js"
 import { NegotiationsView } from "../views/negotiations-view.js"
 import { DaysOfWeek } from "./enums/days-of-week.js"
@@ -19,6 +20,7 @@ export class NegotiationController {
     private negotiations = new Negotiations()
     private negotiationsView = new NegotiationsView('#negotiationsView')
     private messageView = new MessageView('#messageView')
+    private negotiationsService = new NegotationsService
 
     @inspect
     @logRuntime()
@@ -37,6 +39,18 @@ export class NegotiationController {
         this.negotiations.add(negotiation)
         this.cleanForm()
         this.updateView()
+    }
+
+    importData(): void {
+        this.negotiationsService
+        .getNegotiationsOfTheDay()
+        .then(todayNegoatiations => {
+            for(let negotiation of todayNegoatiations) {
+                this.negotiations.add(negotiation)
+            }
+            this.negotiationsView.update(this.negotiations)
+        })
+
     }
 
     private cleanForm(): void {

@@ -9,6 +9,7 @@ import { inspect } from "../decorators/inspect.js";
 import { logRuntime } from "../decorators/log-runtime.js";
 import { Negotiation } from "../models/negotiation.js";
 import { Negotiations } from "../models/negotiations.js";
+import { NegotationsService } from "../services/negotiations-service.js";
 import { MessageView } from "../views/message-view.js";
 import { NegotiationsView } from "../views/negotiations-view.js";
 import { DaysOfWeek } from "./enums/days-of-week.js";
@@ -17,6 +18,7 @@ export class NegotiationController {
         this.negotiations = new Negotiations();
         this.negotiationsView = new NegotiationsView('#negotiationsView');
         this.messageView = new MessageView('#messageView');
+        this.negotiationsService = new NegotationsService;
     }
     add() {
         const negotiation = Negotiation.createFrom(this.inputDate.value, this.inputqtd.value, this.inputValue.value);
@@ -27,6 +29,16 @@ export class NegotiationController {
         this.negotiations.add(negotiation);
         this.cleanForm();
         this.updateView();
+    }
+    importData() {
+        this.negotiationsService
+            .getNegotiationsOfTheDay()
+            .then(todayNegoatiations => {
+            for (let negotiation of todayNegoatiations) {
+                this.negotiations.add(negotiation);
+            }
+            this.negotiationsView.update(this.negotiations);
+        });
     }
     cleanForm() {
         this.inputDate.value = '';
